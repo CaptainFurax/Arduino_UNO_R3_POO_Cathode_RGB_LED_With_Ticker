@@ -39,7 +39,18 @@ Le VMA-307 :
 
 *`Ce qui ajusterait grandement la précision des couleurs en Analogique.`*
 
-## Code - Morceaux choisis
+## Côté Code - Morceaux choisis
+
+* Des Classes *`'Broches'`* et *`'Couleurs'`*(une couleur a trois broches, RGB - Une couleur a 3 broches...ou une LED a besoin de 3 signaux pour generer une couleur, c'est purement sémantique)
+* La Broche stocke GPIO, valeur pwm, seuils et méthodes pour influer dessus.
+* La Couleur les combine et fait office d'interface avec l'Orchestre en influant sur les signaux et en faisant remonter l'etat (ex : fade-in atteint )
+* La classe *`'Orchestre'`* :
+  * Elle gere les interruptions et les enchainements une fois les actions atteintes.
+  * Dans la boucle loop principale, seule la methode *'Upd()'* apparait. 
+  * Orchestre s'appuie grandement sur Ticker.h via une référence sur pointeur(*Ticker*& t*)
+  * In fine/a venir -> des sequences de codes jouées par la classe Orchestre( fade-in, fade-out, transition d'une couleur a une autre, etc...)
+  
+C'est un 'Work in Progress' pour le moment :-)
 
 
 ```cpp 
