@@ -54,5 +54,64 @@ C'est un 'Work in Progress' pour le moment :-)
 
 
 ```cpp 
+void Orchestre::Upd()
+{
+    this->t->update();
+    if ( this->Mouvement ) 
+    {
+        this->Note--;
+        if ( this->Note < 101 )
+            this->Note = 102;
+        this->Mouvement = false;
+    }
+}
 
+void Orchestre::Melodie()
+{
+  if ( this->t != NULL )
+  {
+    switch (this->Note)
+    {
+      case 101:
+        this->Mouvement = this->c->fadin();
+      break;
+
+      case 102:
+        this->Mouvement = this->c->fadout();
+      break;
+      
+      default:
+      break;
+    }
+  } 
+```
+'Melodie' est la méthode passée comme fonction au timer Ticker et appelée toutes les 15ms. En fonction de la valeur de sa note elle fait 'jouer' telle ou telle méthode à la couleur.
+Concrêtement, Melodie est encapsulée dans le Timer et elle oriente les actions a mener. L'action finie, un flag est renseigné. 
+De son coté Upd() reagit à ce flag et joue la 'partition' avec l'action suivante.
+L'exemple ci dessus, fait un 'fade-out', puis une fois celui ci atteint, declenche un 'fade-in' et inversement.
+
+Coté main loop, seul Upd() apparait !
+
+```cpp
+Couleur c1 = Couleur(false,255,100,0);
+Couleur c2 = Couleur(false,0,100,255);
+Couleur *pCol = &c2;
+
+Ticker *pOrchesTimer = nullptr;
+Orchestre Bernstein = Orchestre(pCol, pOrchesTimer);
+Ticker Timer = Ticker( [](){Bernstein.Melodie();}, 15, 0, MILLIS );
+
+void setup()
+{
+    Serial.begin(115200);
+    pCol->on();
+    pOrchesTimer = &Timer;
+    note = 102;
+    Bernstein.Play(note);
+}
+
+void loop()
+{
+  Bernstein.Upd();
+}
 ```
