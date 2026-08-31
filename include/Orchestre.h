@@ -5,7 +5,13 @@
 #include "Couleur.h"
 #include "Ticker.h"
 
-static const Couleur col[] = 
+const struct comm
+{
+    String Comm;
+    Couleur Col;
+};
+
+const Couleur col[] = 
 {
     Couleur("Off",255,0,0),
     Couleur("Off",0,255,0),
