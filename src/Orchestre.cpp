@@ -25,29 +25,26 @@ void Orchestre::Upd()
 
 void Orchestre::Melodie()
 {
-  if ( this->t != NULL )
+  switch (this->Note)
   {
-    switch (this->Note)
-    {
-      case 99:
-        this->Mouvement = this->c.fadout();
-      break;
+    case 99:
+      this->Mouvement = this->c.fadout();
+    break;
 
-      case 100:
-        this->Mouvement = this->c.fadin();
-      break;
-  
-      case 101:
-        this->Mouvement = this->c.fadeto( col[1] );
-      break;
+    case 100:
+      this->Mouvement = this->c.fadin();
+    break;
 
-      case 102:
-        this->Mouvement = this->c.fadeto( col[2] );
-      break;
+    case 101:
+      this->Mouvement = this->c.fadeto( col[1] );
+    break;
 
-      
-      default:
-      break;
-    }
-  } 
+    case 102:
+      this->Mouvement = this->c.fadeto( col[2] );
+    break;
+
+    
+    default:
+    break;
+  }
 }
