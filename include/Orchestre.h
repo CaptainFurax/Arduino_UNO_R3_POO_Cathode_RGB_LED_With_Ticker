@@ -5,7 +5,12 @@
 #include "Couleur.h"
 #include "Ticker.h"
 
-const Couleur col[] = {Couleur("Off",0,255,0), Couleur("Off",255,0,255) };
+static const Couleur col[] = 
+{
+    Couleur("Off",255,0,0),
+    Couleur("Off",0,255,0),
+    Couleur("Off",0,0,255)
+};
 
 class Orchestre
 {

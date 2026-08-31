@@ -83,6 +83,6 @@ void Broche::fadout()
     this->set();
 }
 //
-bool Broche::seuilHaut() { return (this->valeur == this->seuil); }
+bool Broche::seuilMax() { return (this->valeur == this->seuil); }
 //
-bool Broche::seuilBas() { return (this->valeur == 0); }
+bool Broche::seuilMin() { return (this->valeur == 0); }

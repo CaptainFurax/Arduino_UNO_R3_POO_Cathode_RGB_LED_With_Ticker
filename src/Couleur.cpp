@@ -34,11 +34,11 @@ bool Couleur::fadout()
 }
 bool Couleur::plafond()
 {
-    return (this->rouge.seuilHaut() && this->vert.seuilHaut() && this->bleu.seuilHaut() );
+    return (this->rouge.seuilMax() && this->vert.seuilMax() && this->bleu.seuilMax() );
 }
 bool Couleur::plancher()
 {
-    return (this->rouge.seuilBas() && this->vert.seuilBas() && this->bleu.seuilBas() );
+    return (this->rouge.seuilMin() && this->vert.seuilMin() && this->bleu.seuilMin() );
 }
 void Couleur::on()
 {

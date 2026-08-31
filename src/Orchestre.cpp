@@ -17,7 +17,7 @@ void Orchestre::Upd()
     if ( this->Mouvement ) 
     {
         this->Note++;
-        if ( this->Note > 101 )
+        if ( this->Note > 102 )
             this->Note = 99;
         this->Mouvement = false;
     }
@@ -39,6 +39,10 @@ void Orchestre::Melodie()
   
       case 101:
         this->Mouvement = this->c.fadeto( col[1] );
+      break;
+
+      case 102:
+        this->Mouvement = this->c.fadeto( col[2] );
       break;
 
       

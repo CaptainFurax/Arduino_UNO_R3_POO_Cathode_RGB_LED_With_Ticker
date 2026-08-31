@@ -26,8 +26,8 @@ class Broche
         void fade( unsigned int );
         void fadin();
         void fadout();
-        bool seuilHaut();
-        bool seuilBas();
+        bool seuilMax();
+        bool seuilMin();
 };
 
 #endif
