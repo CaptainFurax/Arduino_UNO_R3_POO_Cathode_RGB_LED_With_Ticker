@@ -21,10 +21,11 @@ class Couleur
         Broche bleu;
         
         // Constructeur
-        Couleur(bool, int r=0,int v=0,int b=0);
+        Couleur(String, int r=0,int v=0,int b=0);
         
         // Méthodes (fonctions de la classe)
-        void set(int r=0,int v=0,int b=0);
+        bool equiv(  Couleur c );
+        bool fadeto( Couleur c );
         bool fadin();
         bool fadout();
         bool plafond();

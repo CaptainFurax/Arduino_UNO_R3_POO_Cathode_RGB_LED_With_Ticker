@@ -5,6 +5,8 @@
 #include "Couleur.h"
 #include "Ticker.h"
 
+const Couleur col[] = {Couleur("Off",0,255,0), Couleur("Off",255,0,255) };
+
 class Orchestre
 {
     private:
@@ -13,12 +15,12 @@ class Orchestre
 
 
     public:
-        Couleur *c;
+        Couleur c;
         Ticker*& t;
         int Note;
         bool Mouvement;
         // Constructeur
-        Orchestre(Couleur *c, Ticker*& t);
+        Orchestre(Couleur c, Ticker*& t);
         
         // Méthodes (fonctions de la classe)
         void Play( int n=0 );

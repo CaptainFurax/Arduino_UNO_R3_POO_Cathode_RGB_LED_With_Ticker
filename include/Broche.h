@@ -3,13 +3,6 @@
 
 #include <Arduino.h> // Obligatoire sous PIO pour utiliser le framework Arduino
 
-struct Interval
-{
-    unsigned int start;
-    unsigned int stop;
-    unsigned int amp;
-};
-
 class Broche
 {
     private:
@@ -20,15 +13,16 @@ class Broche
     public:
         int pin;
         unsigned int valeur;
-        Interval inter;
-        bool fwd;
+        unsigned int seuil;
         // Constructeur
-        Broche(bool state, int pin, unsigned int valeur);
+        Broche(String state, int pin, unsigned int valeur);
 
         // Méthodes (fonctions de la classe)
         void on();
         void off();
+        void set();
         void set( int );  
+        void slide( unsigned int );
         void fade( unsigned int );
         void fadin();
         void fadout();

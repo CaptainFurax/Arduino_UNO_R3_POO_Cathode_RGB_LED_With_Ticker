@@ -1,16 +1,22 @@
 #include "Couleur.h"
 
 // Constructeur avec liste d'initialisation (plus rapide en C++)
-Couleur::Couleur(bool state, int r, int v, int b):rouge(state, R,r),vert(state, V,v),bleu(state, B,b)
+Couleur::Couleur(String state, int r, int v, int b):rouge(state, R,r),vert(state, V,v),bleu(state, B,b)
 {
-    this->state = state;
+    this->state = ( state == "Off" ) ? false : true;
+    ( this->state ) ? this->on() : this->off();
 }
 //
-void Couleur::set( int r, int v, int b )
+bool Couleur::equiv( Couleur c )
 {
-    this->rouge.set( r );
-    this->vert.set( v );
-    this->bleu.set( b );
+    return( this->rouge.valeur == c.rouge.seuil && this->vert.valeur == c.vert.seuil && this->bleu.valeur == c.bleu.seuil );
+}
+bool Couleur::fadeto( Couleur c )
+{
+    this->rouge.slide( c.rouge.seuil );
+    this->vert.slide( c.vert.seuil );
+    this->bleu.slide( c.bleu.seuil );
+    return this->equiv( c );
 }
 bool Couleur::fadin()
 {
@@ -36,13 +42,20 @@ bool Couleur::plancher()
 }
 void Couleur::on()
 {
-    this->state = true;
-    this->rouge.on(); this->vert.on(); this->bleu.on();
+    if ( !state )
+    {
+        this->rouge.on(); this->vert.on(); this->bleu.on();
+        state = !state;
+    }
 }
 void Couleur::off()
 {
-    state = false;
-    this->set();
+    if ( state )
+    {
+        this->rouge.off(); this->vert.off(); this->bleu.off();
+        state = !state;
+    }
+
 }
 void Couleur::dbug()
 {

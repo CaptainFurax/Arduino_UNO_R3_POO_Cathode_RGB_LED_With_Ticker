@@ -1,37 +1,26 @@
 #include "Broche.h"
 
-Broche::Broche(bool state, int pin, unsigned int valeur):pin(pin)
+Broche::Broche(String state, int pin, unsigned int valeur):pin(pin)
 {
     pinMode(this->pin, OUTPUT);
-    this->fwd = state;
-    this->valeur = valeur;
-    ( state ) ? this->set( valeur ) : this->off();
-    this->inter = {0, valeur, valeur - 0};
+    this->seuil = valeur;
+    ( state == "Off") ? this->off():this->on();
 }
 //
 void Broche::set(int v)
 {
-    if ( v > 0 )
-        this->fwd = true;
-
     this->valeur = v;
-    analogWrite(this->pin, this->valeur);
-}
-void Broche::on()
-{
-    this->set( this->inter.amp );
+    this->set();
 }
 //
-void Broche::off()
-{
-    this->set(0);
-}
+void Broche::set() { analogWrite(this->pin, this->valeur); }
 //
-void Broche::fade( unsigned int f )
+void Broche::on() { this->set(this->seuil); }
+//
+void Broche::off() { this->set(0); }
+//
+/*void Broche::fade( unsigned int f )
 {
-    // Affiche le debug avant toute modification
-    // AJOUTER DES PARENTHÈSES AUTOUR DU MODULO :
-    // Serial.println(String("val : ") + this->valeur + " - " + f + " % " + (this->valeur % this->inter.stop) );
                                      
     if ( !this->fwd )
     { 
@@ -55,41 +44,45 @@ void Broche::fade( unsigned int f )
         this->fwd = !this->fwd;
     }
 
-    this->set( this->valeur );  
-}
+    this->set();  
+}*/
 
-
-void Broche::fadin()
+void Broche::slide( unsigned int v )
 {
-    if (this->valeur < this->inter.stop)
+    if ( this->valeur < v )
         this->valeur++;
 
-    if (this->valeur > this->inter.stop)
-        this->valeur = this->inter.stop;
-    
-    if ( this->seuilHaut() )
-        this->fwd = !this->fwd;
+    if ( this->valeur > v )
+        this->valeur--;
 
-    this->set( this->valeur );
+    if ( this->valeur == v )
+        this->seuil = v;
+
+    this->set();
 }
+//
+void Broche::fadin()
+{
+    if (this->valeur < this->seuil)
+        this->valeur++;
+
+    if (this->valeur > this->seuil)
+        this->valeur = this->seuil;
+    
+    this->set();
+}
+//
 void Broche::fadout()
 {
-    if (this->valeur > this->inter.start)
+    if (this->valeur > 0)
         this->valeur--; 
     
-    if (this->valeur < this->inter.start)
-        this->valeur = this->inter.start; 
+    if (this->valeur < 0)
+        this->valeur = 0; 
     
-    if ( this->seuilBas() )
-        this->fwd = !this->fwd;
-
-    this->set( this->valeur );
+    this->set();
 }
-bool Broche::seuilHaut()
-{
-    return (this->valeur == this->inter.stop);
-}
-bool Broche::seuilBas()
-{
-    return (this->valeur == this->inter.start);
-}
+//
+bool Broche::seuilHaut() { return (this->valeur == this->seuil); }
+//
+bool Broche::seuilBas() { return (this->valeur == 0); }

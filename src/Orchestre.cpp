@@ -2,7 +2,7 @@
 #include "Couleur.h"
 #include "Ticker.h"
 
-Orchestre::Orchestre( Couleur *c, Ticker*& t):c(c), t(t)
+Orchestre::Orchestre( Couleur c, Ticker*& t):c(c), t(t)
 {
 }
 
@@ -16,9 +16,9 @@ void Orchestre::Upd()
     this->t->update();
     if ( this->Mouvement ) 
     {
-        this->Note--;
-        if ( this->Note < 101 )
-            this->Note = 102;
+        this->Note++;
+        if ( this->Note > 101 )
+            this->Note = 99;
         this->Mouvement = false;
     }
 }
@@ -29,13 +29,18 @@ void Orchestre::Melodie()
   {
     switch (this->Note)
     {
-      case 101:
-        this->Mouvement = this->c->fadin();
+      case 99:
+        this->Mouvement = this->c.fadout();
       break;
 
-      case 102:
-        this->Mouvement = this->c->fadout();
+      case 100:
+        this->Mouvement = this->c.fadin();
       break;
+  
+      case 101:
+        this->Mouvement = this->c.fadeto( col[1] );
+      break;
+
       
       default:
       break;

@@ -6,9 +6,11 @@
 
 int note;
 
-Couleur c1 = Couleur(false,255,100,0);
-Couleur c2 = Couleur(false,0,100,255);
-Couleur *pCol = &c2;
+//Couleur c1 = Couleur(true,255,0,255); // 255, 100, 0
+//Couleur c2 = Couleur(true,0,255,0); // 0, 100, 255
+
+
+Couleur pCol = col[0];
 
 Ticker *pOrchesTimer = nullptr;
 Orchestre Bernstein = Orchestre(pCol, pOrchesTimer);
@@ -17,9 +19,8 @@ Ticker Timer = Ticker( [](){Bernstein.Melodie();}, 15, 0, MILLIS );
 void setup()
 {
     Serial.begin(115200);
-    pCol->on();
     pOrchesTimer = &Timer;
-    note = 102;
+    note = 100;
     Bernstein.Play(note);
 }
 
