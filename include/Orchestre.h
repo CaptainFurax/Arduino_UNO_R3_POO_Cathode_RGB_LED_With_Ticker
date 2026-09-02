@@ -5,12 +5,20 @@
 #include "Couleur.h"
 #include "Ticker.h"
 
+struct Arpege
+{
+    Couleur c;
+    int Note;
+};
+
 const Couleur col[] = 
 {
     Couleur("Off",255,0,0),
     Couleur("Off",0,255,0),
     Couleur("Off",0,0,255)
 };
+
+
 
 class Orchestre
 {

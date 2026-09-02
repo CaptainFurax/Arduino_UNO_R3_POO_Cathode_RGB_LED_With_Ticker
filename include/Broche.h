@@ -22,8 +22,7 @@ class Broche
         void off();
         void set();
         void set( int );  
-        void slide( unsigned int );
-        void fade( unsigned int );
+        void slide( unsigned int v=0 );
         void fadin();
         void fadout();
         bool seuilMax();
